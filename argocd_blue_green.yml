@@ -1,0 +1,64 @@
+---
+# 서비스
+apiVersion: v1
+kind: Service
+metadata:
+  name: eunjun-argocd-svc
+spec:
+  selector:
+    color: green
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer
+
+---
+# deployment : blue
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eunjun-argocd-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      color: blue
+  template:
+    metadata:
+      labels:
+        color: blue
+    spec:
+      containers:
+      - name: eunjun-argocd-ctn
+        image: eunjun0122/ktinfrastudy:blue
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eunjun-green
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      color: green
+  template:
+    metadata:
+      labels:
+        color: green
+    spec:
+      containers:
+      - name: eunjunctn-green
+        image: eunjun0122/ktinfrastudy:green
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
