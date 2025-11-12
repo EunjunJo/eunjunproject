@@ -34,7 +34,7 @@ spec:
         resources:
           limits:
             memory: "64Mi"
-            cpu: "500m"
+            cpu: "200m"
         ports:
         - containerPort: 80
 
@@ -59,6 +59,6 @@ spec:
         resources:
           limits:
             memory: "64Mi"
-            cpu: "500m"
+            cpu: "200m"
         ports:
         - containerPort: 80
